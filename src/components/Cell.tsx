@@ -4,7 +4,6 @@ import type { Variant } from "../d";
 
 type Props = {
   size?: number;
-  padding?: number;
   variant?: Variant;
 };
 
@@ -18,11 +17,10 @@ const colors: Record<Variant, string> = {
   water: 'blue',
 };
 
-const Cell: React.FC<Props> = ({ variant, size = 20, padding = 10 }) => (
+const Cell: React.FC<Props> = ({ variant, size = 20 }) => (
   <div
     style={{
       backgroundColor: variant ? colors[variant] : "white",
-      padding,
       border: "1px solid #000",
       width: size,
       height: size,

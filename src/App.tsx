@@ -12,7 +12,7 @@ const App: React.FC = () => {
       {mesh.map((column, i) => (
         <div key={i} style={{ display: "flex" }}>
           {column.map((cell, j) => (
-            <Cell variant={cell} key={j} size={5} padding={1} />
+            <Cell variant={cell} key={j} size={5} />
           ))}
         </div>
       ))}
