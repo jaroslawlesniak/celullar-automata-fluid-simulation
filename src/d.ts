@@ -1,3 +1,5 @@
-export type Variant = 'forest' | 'fire';
+export type Variant = 'empty' | 'forest' | 'fire';
 
-export type Mesh = Array<Array<Variant | undefined>>;
+export type Simulator = (neighborhood: Variant[]) => (cell: Variant) => Variant
+
+export type Mesh = Array<Array<Variant>>;

@@ -1,15 +1,11 @@
 import { Cell } from "./components";
+import { forest } from "./features";
 import { useCelullarAutomata } from "./hooks";
 
+const { data, simulator } = forest.prepare(15);
+
 const App: React.FC = () => {
-  const mesh = useCelullarAutomata(
-    [
-      ["forest", "forest", "forest"],
-      [undefined, "forest", "forest"],
-      ["forest", "forest", "fire"],
-    ],
-    (cell) => cell
-  );
+  const mesh = useCelullarAutomata(data, simulator);
 
   return (
     <>

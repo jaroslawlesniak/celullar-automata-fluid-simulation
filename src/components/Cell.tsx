@@ -6,6 +6,7 @@ type Props = {
 };
 
 const colors: Record<Variant, string> = {
+  empty: 'white',
   fire: "red",
   forest: "green",
 };
