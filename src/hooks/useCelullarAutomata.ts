@@ -24,7 +24,7 @@ const useCelullarAutomata = (
       setMesh((rows) =>
         rows.map((column, i, rows) => column.map((cell, j) => simulator(neighborhood(i, j, rows))(cell)))
       );
-    }, 1000);
+    }, 500);
 
     return () => clearInterval(interval);
   }, []);

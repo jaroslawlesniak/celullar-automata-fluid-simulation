@@ -1,4 +1,5 @@
 import { Mesh, Simulator, Variant } from "../d";
+import { randomizeWithWeights } from "../lib/generator";
 
 const random = (min: number, max: number) => () => {
   return Math.floor(Math.random() * (max - min) + min);
@@ -9,7 +10,17 @@ type Prepare = {
   simulator: Simulator;
 };
 
-const variants: Array<Variant> = ["empty", "forest", "fire"];
+const factor = 100;
+
+const variants: Array<Variant> = randomizeWithWeights<Variant>(
+  { value: 'fire', percentage: 1 },
+  { value: 'forest', percentage: 50 * factor },
+  { value: 'empty', percentage: 20 * factor },
+  { value: 'water', percentage: 3 * factor },
+  { value: 'litter', percentage: 10 * factor },
+  { value: 'stone', percentage: 10 * factor },
+  { value: 'empty', percentage: 6 * factor },
+);
 
 const randomize = (size: number): Mesh => {
   const rand = random(0, variants.length);
@@ -28,11 +39,27 @@ const randomize = (size: number): Mesh => {
 };
 
 const simulator: Simulator = (neighborhood: Variant[]) => (cell: Variant) => {
-  if (neighborhood.some((e) => e === "fire") && cell === "forest") {
+  if (neighborhood.some((e) => e === "fire") && (cell === "forest" || cell === 'litter')) {
     return "fire";
   }
 
-  return cell === "fire" ? "empty" : "forest";
+  if (cell === 'fire') {
+    return 'ashes';
+  }
+
+  if (cell === 'ashes') {
+    return 'empty';
+  }
+
+  if (cell === 'empty') {
+    return 'litter';
+  }
+
+  if (cell === 'litter') {
+    return 'forest';
+  }
+
+  return cell;
 };
 
 export const prepare = (size = 5): Prepare => ({

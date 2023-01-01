@@ -2,7 +2,7 @@ import { Cell } from "./components";
 import { forest } from "./features";
 import { useCelullarAutomata } from "./hooks";
 
-const { data, simulator } = forest.prepare(15);
+const { data, simulator } = forest.prepare(100);
 
 const App: React.FC = () => {
   const mesh = useCelullarAutomata(data, simulator);
@@ -12,7 +12,7 @@ const App: React.FC = () => {
       {mesh.map((column, i) => (
         <div key={i} style={{ display: "flex" }}>
           {column.map((cell, j) => (
-            <Cell variant={cell} key={j} />
+            <Cell variant={cell} key={j} size={5} padding={1} />
           ))}
         </div>
       ))}
@@ -21,4 +21,3 @@ const App: React.FC = () => {
 };
 
 export default App;
-
