@@ -1,5 +1,6 @@
 import React from "react";
-import { Variant } from "../d";
+
+import type { Variant } from "../d";
 
 type Props = {
   variant?: Variant;

@@ -9,7 +9,7 @@ type Prepare = {
   simulator: Simulator;
 };
 
-const variants: Array<Variant> = ["empty", "forest"];
+const variants: Array<Variant> = ["empty", "forest", "fire"];
 
 const randomize = (size: number): Mesh => {
   const rand = random(0, variants.length);
@@ -25,10 +25,15 @@ const randomize = (size: number): Mesh => {
   }
 
   return data;
-}
+};
 
-const simulator: Simulator = (neighborhood: Variant[]) => (cell: Variant) =>
-  cell === "forest" ? "fire" : "forest";
+const simulator: Simulator = (neighborhood: Variant[]) => (cell: Variant) => {
+  if (neighborhood.some((e) => e === "fire") && cell === "forest") {
+    return "fire";
+  }
+
+  return cell === "fire" ? "empty" : "forest";
+};
 
 export const prepare = (size = 5): Prepare => ({
   data: randomize(size),
